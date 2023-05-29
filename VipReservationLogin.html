@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no,viewport-fit=cover" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <title>Vip预约护士登录</title>
+    <link rel="stylesheet" href="https://unpkg.com/vant@2.12/lib/index.css"/>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            /* webkit是苹果浏览器引擎，tap点击，highlight背景高亮，color颜色，颜色用数值调节。 */
+        }
+
+        #app4 {
+            width: 100%;
+            height: 100%;
+            /*overflow: scroll;*/
+            background: #FFFFFF;
+        }
+
+        .bg4 {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background:#FFFFFF;
+            overflow: hidden;
+        }
+
+        .ser_home4 {
+            width: 100%;
+            height: 100%;
+            margin-top: 20px;
+        }
+
+
+        .empty_view4{
+            height: 50px;
+            width: 100%;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        /*滑动轨道*/
+        ::-webkit-scrollbar-track-piece {
+            background-color: transparent;
+            -webkit-border-radius: 6px;
+        }
+        /*竖向滚动条*/
+        ::-webkit-scrollbar-thumb:vertical {
+            height: 5px;
+            background-color: #ffffff;
+            -webkit-border-radius: 6px;
+        }
+        /*横向滚动条*/
+        ::-webkit-scrollbar-thumb:horizontal {
+            width: 5px;
+            background-color: #ffffff;
+            -webkit-border-radius: 6px;
+        }
+
+
+        .search-list-role-from4 {
+            border: 0 none;
+            /*width: 100%;*/
+            padding: 0px 20px;
+            margin-top: 20px;
+            border-radius: 20px;
+        }
+
+        .search-list-role-from-a4 {
+            /*width: 100%;*/
+            display: flex;
+            flex-direction: column;
+            /*padding: 10px 20px;*/
+            background: #ffffff;
+            border-radius: 20px;
+        }
+
+        .search-list-role-from-b4 {
+            padding-top: 18px;
+            padding-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .search-list-role-from-c14 {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 10px 0px;
+            border-bottom: 1px solid #dddddd;
+            /*border-top: 1px solid #dddddd;*/
+        }
+
+        .search-list-role-from-c4 {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 10px 0px;
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .search-list-role-from-d4 {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 10px 0px;
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .select-item4 {
+            width: 80%;
+        }
+
+        .input-item4 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            height: 30px;
+            background: #ffffff;
+            /*border-radius: 12px;*/
+            border: none;
+            outline: none;
+            font-size: 16px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #333333 !important;
+            padding-left: 20px;
+            text-align: end;
+        }
+
+        .s_center_t_item4 {
+        }
+
+
+        .van-field__label4{
+            width: 100% !important;
+            /*height: 30px !important;*/
+            background: #ffffff;
+            /*border-radius: 12px;*/
+            border: none;
+            outline: none;
+            font-size: 16px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #666666 !important;
+            text-align: end;
+            margin-right: 0px !important;
+            padding: 0px 0px 0px 20px !important;
+        }
+
+        .icon_logo4 {
+            width: 151px;
+            height: 151px;
+        }
+
+        .view_bottom4 {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 100%;
+            z-index: 9;
+            height: 80px;
+        }
+
+        .view_bottom_left4 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 240px;
+            height: 40px;
+            background: #e06596;
+            border-radius: 50px;
+            border: 1px solid #e06596;
+            font-size: 18px;
+            color: #ffffff;
+        }
+
+        .icon_div4{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+    </style>
+</head>
+
+<body>
+<div id="app4" v-cloak>
+    <div class="bg4">
+        <template>
+            <div class="ser_home4">
+                <div class="icon_div4">
+                    <img class="icon_logo4" src="images/coyote.png" alt="" />
+                </div>
+                <div class="search-list-role-from4">
+                    <div class="search-list-role-from-a4">
+                        <div class="search-list-role-from-c14">
+                            <div class="s_center_t_item4" style="width: 20%">手机号：</div>
+                            <div class="select-item4 input-item4">
+                                <van-field v-model="vip_phone" type="tel" label="" placeholder="请输入手机号" maxlength="11" class="van-field__label4"/>
+                            </div>
+                        </div>
+
+                        <div class="search-list-role-from-c4">
+                            <div class="s_center_t_item4" style="width: 20%">密码：</div>
+                            <div class="select-item4 input-item4">
+                                <van-field v-model="vip_pass" type="password" label="" placeholder="请输入密码" class="van-field__label4"/>
+                            </div>
+                        </div>
+                        <div style="height: 50px;"></div>
+
+                        <div class="view_bottom4">
+                            <div class="view_bottom_left4" @click="clickSubmit">登录</div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="empty_view4"></div>-->
+            </div>
+        </template>
+    </div>
+</div>
+<script src="https://unpkg.com/vue@2.6/dist/vue.min.js"></script>
+<script src="https://unpkg.com/vant@2.12/lib/vant.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    window.onload = () => {
+        new Vue({
+            el: "#app4",
+            data() {
+                return {
+                    open_id: "",
+                    vip_phone: "",
+                    vip_pass: ""
+                };
+            },
+            created() {
+                var Request = new Object();
+                Request = this.GetRequest();
+                var appointment_num = Request['appointment_num'];
+                var openid = Request['openid'];
+                this.open_id = openid;
+
+
+                console.log(appointment_num,openid)
+            },
+            mounted() {
+
+            },
+            methods: {
+                GetRequest() {
+                    var url = location.search; //获取url中"?"符后的字串
+                    var theRequest = new Object();
+                    if (url.indexOf("?") != -1) {
+                        var str = url.substr(1);
+                        strs = str.split("&");
+                        for (var i = 0; i < strs.length; i++) {
+                            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                        }
+                    }
+                    return theRequest;
+                },
+                checkPhone(phone) {
+                    var phoneReg = /^1\d{10}$/;
+                    if (phone.length != 11) {
+                        return false;
+                    } else if (!phoneReg.test(phone)) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                },
+                clickSubmit() {
+                    if (this.vip_phone == "") {
+                        vant.Toast('请填写手机号')
+                        return;
+                    } else if (!this.checkPhone(this.vip_phone)) {
+                        vant.Toast('手机号有误')
+                        return;
+                    } else if (this.vip_pass == "") {
+                        vant.Toast('请输入密码')
+                        return;
+                    } else {
+                        let that = this;
+                        axios.get("http://172.16.23.37:8080/lis_appointment/Vipcoyote/nurseLogin.hn", {
+                            params:{
+                                phone: that.vip_phone,
+                                passWord: that.vip_pass
+                            }
+                        }).then(function (res) {
+                            if (res.data.success) {
+                                vant.Toast(res.data.msg)
+                                let phone = res.data.phone;
+                                let name = res.data.name;
+                                location.replace(encodeURI("./VipReservationList.html?phone=" + phone + "&name=" + name));
+                            } else {
+                                vant.Toast(res.data.msg)
+                            }
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+                    }
+                },
+            },
+        });
+    };
+</script>
+</body>
+
+</html>

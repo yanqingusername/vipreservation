@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no,viewport-fit=cover" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <title>Vip预约列表</title>
+    <link rel="stylesheet" href="https://unpkg.com/vant@2.12/lib/index.css"/>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            /* webkit是苹果浏览器引擎，tap点击，highlight背景高亮，color颜色，颜色用数值调节。 */
+        }
+
+        #app3 {
+            width: 100%;
+            height: 100%;
+            /*overflow: scroll;*/
+            background: #FFFFFF;
+        }
+
+        .bg3 {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background:#FFFFFF;
+            overflow: hidden;
+        }
+
+        .ser_home3 {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        .empty_view3{
+            height: 50px;
+            width: 100%;
+        }
+
+
+        .search-list-role3 {
+            border: 0 none;
+            background-color: #F6F6F6;
+            width: 100%;
+        }
+
+        .class_list3{
+            padding: 15px 15px 0px 15px;
+        }
+
+        .search-result-view3 {
+            display: flex;
+            padding: 15px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            flex-direction: column;
+            /*margin-top: 20px;*/
+        }
+
+
+        .search-result-view-item3 {
+            width: 100%;
+            display: flex;
+            padding: 4px 0px 0px 0px;
+        }
+
+
+        .search-result-view-left3{
+            width: 25%;
+            font-size: 16px;
+            color: #999999;
+        }
+
+        .search-result-view-right3{
+            width: 75%;
+            font-size: 16px;
+            word-break: break-all;
+        }
+
+        .pic-img-view3 {
+            position: absolute;
+            right: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .pic-img-icon3{
+            width: 20px;
+            height: 24px;
+
+        }
+
+
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        /*滑动轨道*/
+        ::-webkit-scrollbar-track-piece {
+            background-color: transparent;
+            -webkit-border-radius: 6px;
+        }
+               /*竖向滚动条*/
+           ::-webkit-scrollbar-thumb:vertical {
+               height: 5px;
+               background-color: #ffffff;
+               -webkit-border-radius: 6px;
+           }
+        /*横向滚动条*/
+        ::-webkit-scrollbar-thumb:horizontal {
+            width: 5px;
+            background-color: #ffffff;
+            -webkit-border-radius: 6px;
+        }
+
+
+        .s_center_t_r_i3{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #E06596;
+            font-size: 16px;
+            padding: 4px 12px;
+            color: #E06596;
+        }
+
+        .dis_setting3{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px 50px 20px 50px;
+        }
+
+        .s_center_t_item3{
+            font-size: 18px;
+        }
+
+        .s_setting_t_item3{
+            font-size: 16px;
+        }
+
+        .t_center3{
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+        }
+        .s_center_t3{
+        }
+        .s_center_t_r3{
+            /*width: 335px;*/
+            display: flex;
+        }
+        .s_center_t_r3::-webkit-scrollbar { display: none; }
+
+        .s_center_t_r_v3{
+            display: -webkit-inline-box;
+        }
+        .s_center_t_r_i3{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffffff;
+            border-radius: 6px;
+            border: 1px solid #E06596;
+            padding: 5px 10px;
+            color: #E06596;
+            margin-right: 14px;
+        }
+
+        .s_center_t_r_i_default3{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffffff;
+            border-radius: 6px;
+            border: 1px solid #A1A1A1;
+            padding: 5px 10px;
+            color: #A1A1A1;
+            margin-right: 14px;
+        }
+    </style>
+</head>
+
+<body style="background: #F6F6F6;">
+<div id="app3" v-cloak>
+    <div class="bg3">
+        <template>
+            <div class="ser_home3">
+                <van-tabs @click="onClick">
+                    <van-tab title="待接单"><div class="search-list-role3" v-if="instrumentList1.length>0">
+                        <van-pull-refresh v-model="refreshing1" @refresh="onRefresh1">
+                            <van-list
+                                    v-model="loading1"
+                                    :finished="finished1"
+                                    finished-text="没有更多了">
+                                <div v-for="(item, index) in instrumentList1"
+                                     :key="index" class="class_list3">
+                                    <div class="search-result-view3">
+                                        <div class="dis_setting3" style="padding: 0px 0px 0px 0px;">
+                                            <div class="s_center_t_item3">{{ item.order_number }}</div>
+                                            <div class="s_setting_t_item3" style="color:#ec1f2d;" v-if="item.status == 0">{{'未支付'}}</div>
+                                            <div class="s_setting_t_item3" style="color:#ec1f2d;" v-if="item.status == 1">{{'未接单'}}</div>
+                                            <div class="s_setting_t_item3" style="color:#ec1f2d;" v-if="item.status == 2">{{'已接单'}}</div>
+                                            <div class="s_setting_t_item3" style="color:#ec1f2d;" v-if="item.status == 3">{{'退款中'}}</div>
+                                            <div class="s_setting_t_item3" style="color:#ec1f2d;" v-if="item.status == 4">{{'退款成功'}}</div>
+                                            <div class="s_setting_t_item3" style="color:#ec1f2d;" v-if="item.status == 5">{{'服务结束'}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.custom_name">
+                                            <div class="search-result-view-left3">联系人</div>
+                                            <div class="search-result-view-right3">{{item.custom_name}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.custom_phone">
+                                            <div class="search-result-view-left3">手机号</div>
+                                            <div class="search-result-view-right3">{{item.custom_phone}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.location">
+                                            <div class="search-result-view-left3">上门地址</div>
+                                            <div class="search-result-view-right3">{{item.area}}{{item.location}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.appointment_num">
+                                            <div class="search-result-view-left3">信息码</div>
+                                            <div class="search-result-view-right3">{{item.appointment_num}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.Service_Type">
+                                            <div class="search-result-view-left3">检测类型</div>
+                                            <div class="search-result-view-right3">{{item.Service_Type}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.Number_of_people">
+                                            <div class="search-result-view-left3">受检人数</div>
+                                            <div class="search-result-view-right3">{{item.Number_of_people}}人</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.DetectionPrice">
+                                            <div class="search-result-view-left3">检测费用</div>
+                                            <div class="search-result-view-right3">{{item.DetectionPrice}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.Special_timeCost">
+                                            <div class="search-result-view-left3">特殊费用</div>
+                                            <div class="search-result-view-right3">{{item.Special_timeCost}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.servicecost">
+                                            <div class="search-result-view-left3">服务费用</div>
+                                            <div class="search-result-view-right3">{{item.servicecost}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.payment_amount">
+                                            <div class="search-result-view-left3">总计费用</div>
+                                            <div class="search-result-view-right3">{{item.payment_amount}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.pay_time">
+                                            <div class="search-result-view-left3">付款时间</div>
+                                            <div class="search-result-view-right3">{{item.pay_time}}</div>
+                                        </div>
+
+                                        <div class="dis_setting3" style="padding: 6px 0px 0px 0px;">
+                                            <div class="s_center_t_item3" style="display:flex;">
+                                                <div class="s_setting_t_item3" style="color:#E06596;">预约时间：{{item.Expected_time}}</div>
+                                            </div>
+                                            <div class="s_setting_t_item3" style="display:flex;">
+                                                <div class="s_center_t_r_i3" style="margin-right:0px;" @click="clickHandler(item,index)" v-if="item.status == 1">接单</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </van-list>
+                        </van-pull-refresh>
+                    </div>
+                        <div class="search-list-role3" v-else>
+                            <van-empty description="暂无数据"></van-empty>
+                        </div></van-tab>
+                    <van-tab title="已接单"><div class="search-list-role3" v-if="instrumentList2.length>0">
+                        <van-pull-refresh v-model="refreshing2" @refresh="onRefresh2">
+                            <van-list
+                                    v-model="loading2"
+                                    :finished="finished2"
+                                    finished-text="没有更多了">
+                                <div v-for="(item, index) in instrumentList2"
+                                     :key="index" class="class_list3">
+                                    <div class="search-result-view3">
+                                        <div class="dis_setting3" style="padding: 0px 0px 0px 0px;">
+                                            <div class="s_center_t_item3">{{ item.order_number }}</div>
+                                            <div class="s_setting_t_item3" style="color:#ec1f2d;" v-if="item.status == 0">{{'未支付'}}</div>
+                                            <div class="s_setting_t_item3" style="color:#ec1f2d;" v-if="item.status == 1">{{'未接单'}}</div>
+                                            <div class="s_setting_t_item3" style="color:#ec1f2d;" v-if="item.status == 2">{{'已接单'}}</div>
+                                            <div class="s_setting_t_item3" style="color:#ec1f2d;" v-if="item.status == 3">{{'退款中'}}</div>
+                                            <div class="s_setting_t_item3" style="color:#ec1f2d;" v-if="item.status == 4">{{'退款成功'}}</div>
+                                            <div class="s_setting_t_item3" style="color:#ec1f2d;" v-if="item.status == 5">{{'服务结束'}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.custom_name">
+                                            <div class="search-result-view-left3">联系人</div>
+                                            <div class="search-result-view-right3">{{item.custom_name}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.custom_phone">
+                                            <div class="search-result-view-left3">手机号</div>
+                                            <div class="search-result-view-right3">{{item.custom_phone}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.location">
+                                            <div class="search-result-view-left3">上门地址</div>
+                                            <div class="search-result-view-right3">{{item.area}}{{item.location}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.appointment_num">
+                                            <div class="search-result-view-left3">信息码</div>
+                                            <div class="search-result-view-right3">{{item.appointment_num}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.Service_Type">
+                                            <div class="search-result-view-left3">检测类型</div>
+                                            <div class="search-result-view-right3">{{item.Service_Type}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.Number_of_people">
+                                            <div class="search-result-view-left3">受检人数</div>
+                                            <div class="search-result-view-right3">{{item.Number_of_people}}人</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.DetectionPrice">
+                                            <div class="search-result-view-left3">检测费用</div>
+                                            <div class="search-result-view-right3">{{item.DetectionPrice}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.Special_timeCost">
+                                            <div class="search-result-view-left3">特殊费用</div>
+                                            <div class="search-result-view-right3">{{item.Special_timeCost}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.servicecost">
+                                            <div class="search-result-view-left3">服务费用</div>
+                                            <div class="search-result-view-right3">{{item.servicecost}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.payment_amount">
+                                            <div class="search-result-view-left3">总计费用</div>
+                                            <div class="search-result-view-right3">{{item.payment_amount}}</div>
+                                        </div>
+                                        <div class="search-result-view-item3" v-if="item.pay_time">
+                                            <div class="search-result-view-left3">付款时间</div>
+                                            <div class="search-result-view-right3">{{item.pay_time}}</div>
+                                        </div>
+
+                                        <div class="dis_setting3" style="padding: 6px 0px 0px 0px;">
+                                            <div class="s_center_t_item3" style="display:flex;">
+                                                <div class="s_setting_t_item3" style="color:#E06596;">预约时间：{{item.Expected_time}}</div>
+                                            </div>
+                                            <div class="s_setting_t_item3" style="display:flex;">
+                                                <div class="s_center_t_r_i3" style="margin-right:0px;" @click="clickHandlerDown(item,index)" v-if="item.status == 2">完成</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </van-list>
+                        </van-pull-refresh>
+                    </div>
+                        <div class="search-list-role3" v-else>
+                            <van-empty description="暂无数据"></van-empty>
+                        </div></van-tab>
+                </van-tabs>
+
+<!--                <div class="empty_view"></div>-->
+            </div>
+        </template>
+    </div>
+</div>
+<script src="https://unpkg.com/vue@2.6/dist/vue.min.js"></script>
+<script src="https://unpkg.com/vant@2.12/lib/vant.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    window.onload = () => {
+        new Vue({
+            el: "#app3",
+            data() {
+                return {
+                    open_id: "",
+                    phone: "",
+                    name: "",
+                    page: 1, //第几页
+                    limit: 30, //每页限制
+                    instrumentList1: [],
+                    loading1: false,
+                    finished1: false,
+                    refreshing1: false,
+
+                    instrumentList2: [],
+                    loading2: false,
+                    finished2: false,
+                    refreshing2: false,
+                };
+            },
+            created() {
+                var Request = new Object();
+                Request = this.GetRequest();
+                var phone = Request['phone'];
+                var name = Request['name'];
+                this.phone = phone;
+                this.name = name;
+
+                console.log(phone,name)
+            },
+            mounted() {
+                this.getAllVIPRecords1();
+            },
+            methods: {
+                onClick(name, title) {
+                    if(title == '待接单'){
+                        this.onRefresh1();
+                    } else if(title == '已接单'){
+                        this.onRefresh2();
+                    }
+                },
+                GetRequest() {
+                    var url = location.search; //获取url中"?"符后的字串
+                    url = decodeURI(url);
+                    var theRequest = new Object();
+                    if (url.indexOf("?") != -1) {
+                        var str = url.substr(1);
+                        strs = str.split("&");
+                        for (var i = 0; i < strs.length; i++) {
+                            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                        }
+                    }
+                    return theRequest;
+                },
+                getAllVIPRecords1() {
+                    if (this.refreshing1) {
+                        this.instrumentList1 = [];
+                        this.refreshing1 = false;
+                    }
+                    let that = this;
+                    // params:{
+                    //     open_id: this.open_id
+                    // }
+                    axios.get("http://172.16.23.37:8080/lis_appointment/Vipcoyote/getPendingOrders.hn", {}).then(function (res) {
+                        if (res.data.success) {
+                            that.instrumentList1 = res.data.data;
+                            that.loading1 = false;
+                            that.finished1 = true;
+                        } else {
+                            vant.Toast(res.data.msg)
+                        }
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                },
+                onRefresh1(){
+                    // 清空列表数据
+                    this.finished1 = false;
+                    this.instrumentList1 = [];
+                    // 重新加载数据
+                    // 将 loading 设置为 true，表示处于加载状态
+                    this.loading1 = true;
+                    this.getAllVIPRecords1();
+                },
+                getAllVIPRecords2() {
+                    if (this.refreshing2) {
+                        this.instrumentList2 = [];
+                        this.refreshing2 = false;
+                    }
+                    let that = this;
+                    axios.get("http://172.16.23.37:8080/lis_appointment/Vipcoyote/getAllOrderByid.hn", {
+                        params:{
+                            // open_id: this.open_id
+                            phone: that.phone
+                        }
+                    }).then(function (res) {
+                        if (res.data.success) {
+                            that.instrumentList2 = res.data.data;
+                            that.loading2 = false;
+                            that.finished2 = true;
+                        } else {
+                            vant.Toast(res.data.msg)
+                        }
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                },
+                onRefresh2(){
+                    // 清空列表数据
+                    this.finished2 = false;
+                    this.instrumentList2 = [];
+                    // 重新加载数据
+                    // 将 loading 设置为 true，表示处于加载状态
+                    this.loading2 = true;
+                    this.getAllVIPRecords2();
+                },
+                clickHandler(item,index){
+                    let that = this;
+                    let appointment_num = item.appointment_num;
+                    if(appointment_num){
+                        vant.Dialog.confirm({
+                            title: '温馨提示',
+                            message: '接单成功后请及时查看短信，以免错过客户预约时间～',
+                        }).then(() => {
+                            axios.get("http://172.16.23.37:8080/lis_appointment/Vipcoyote/ReceivingOrders.hn", {
+                                params:{
+                                    appointment_num: appointment_num,
+                                    phone: that.phone
+                                }
+                            }).then(function (res) {
+                                if (res.data.success) {
+                                    vant.Toast(res.data.msg)
+                                    that.onRefresh1();
+                                } else {
+                                    vant.Toast(res.data.msg)
+                                }
+                            }).catch(function (error) {
+                                console.log(error);
+                            });
+                        }).catch(() => {
+                                // on cancel
+                        });
+                    }
+                },
+                clickHandlerDown(item,index){
+                    let that = this;
+                    let appointment_num = item.appointment_num;
+                    if(appointment_num){
+                        vant.Dialog.confirm({
+                            title: '温馨提示',
+                            message: '接单成功后请及时查看短信，以免错过客户预约时间～',
+                        }).then(() => {
+                            axios.get("http://172.16.23.37:8080/lis_appointment/Vipcoyote/ReceivingOrders.hn", {
+                                params:{
+                                    appointment_num: appointment_num,
+                                    phone: that.phone
+                                }
+                            }).then(function (res) {
+                                if (res.data.success) {
+                                    vant.Toast(res.data.msg)
+                                    that.onRefresh2();
+                                } else {
+                                    vant.Toast(res.data.msg)
+                                }
+                            }).catch(function (error) {
+                                console.log(error);
+                            });
+                        }).catch(() => {
+                            // on cancel
+                        });
+                    }
+                }
+            },
+        });
+    };
+</script>
+</body>
+
+</html>

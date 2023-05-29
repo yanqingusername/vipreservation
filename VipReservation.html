@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no,viewport-fit=cover" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <title>vip预约</title>
+    <link rel="stylesheet" href="https://unpkg.com/vant@2.12/lib/index.css"/>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            /* webkit是苹果浏览器引擎，tap点击，highlight背景高亮，color颜色，颜色用数值调节。 */
+        }
+
+        #app2 {
+            width: 100%;
+            height: 100%;
+            overflow: scroll;
+            background: #FFFFFF;
+        }
+
+        .bg2 {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background:#FFFFFF;
+            overflow: hidden;
+        }
+
+        .ser_home2 {
+            width: 100%;
+            height: 100%;
+        }
+
+        .drop_rain2{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            overflow: hidden;
+            padding: 20px 20px 10px 20px;
+        }
+
+        .drop_rain_12{
+            color: #706c6c;
+        }
+
+        .drop_rain_22{
+            color: #e06596;
+            text-decoration-line: underline;
+        }
+
+        .t_center2{
+            display: block;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        .s_center_t2{
+        }
+        .s_center_t_r2{
+            /*width: 335px;*/
+            display: flex;
+            overflow: scroll;
+            margin-top: 10px;
+        }
+        .s_center_t_r2::-webkit-scrollbar { display: none; }
+
+        .s_center_t_r_v2{
+            display: -webkit-inline-box;
+        }
+        .s_center_t_r_i2{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffffff;
+            border-radius: 6px;
+            border: 1px solid #E06596;
+            padding: 5px 10px;
+            color: #E06596;
+            margin-right: 14px;
+        }
+
+        .s_center_t_r_i_default2{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffffff;
+            border-radius: 6px;
+            border: 1px solid #A1A1A1;
+            padding: 5px 10px;
+            color: #A1A1A1;
+            margin-right: 14px;
+        }
+
+        .vip_32{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            overflow: hidden;
+            padding: 14px 20px 10px 20px;
+        }
+        .s_setting_t_item2 {
+            /*font-size: 16px;*/
+            /*color: #e06596*/
+        }
+
+        .search-list-role-from2 {
+            border: 0 none;
+            /*width: 100%;*/
+            padding: 0px 20px;
+            /*margin-top: 20px;*/
+            border-radius: 20px;
+        }
+
+        .search-list-role-from-a2 {
+            /*width: 100%;*/
+            display: flex;
+            flex-direction: column;
+            /*padding: 10px 20px;*/
+            background: #ffffff;
+            border-radius: 20px;
+        }
+
+        .search-list-role-from-b2 {
+            padding-top: 18px;
+            padding-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .search-list-role-from-c12 {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 10px 0px;
+            border-bottom: 1px solid #dddddd;
+            border-top: 1px solid #dddddd;
+        }
+
+        .search-list-role-from-c2 {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 10px 0px;
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .search-list-role-from-d2 {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 10px 0px;
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .search-list-role-from-g2{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            background: #ffffff;
+            padding: 10px 0px;
+            border-bottom: 1px solid #dddddd;
+            align-items: center;
+
+        }
+
+        .select-item2 {
+            width: 80%;
+        }
+
+        .div-item2{
+            padding: 6px 0px;
+            width: 74%;
+            display: flex;
+            align-items: center;
+            position: relative;
+            font-size: 18px;
+            color: #333333;
+        }
+
+        .input-item2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            height: 30px;
+            background: #ffffff;
+            /*border-radius: 12px;*/
+            border: none;
+            outline: none;
+            font-size: 16px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #333333 !important;
+            padding-left: 20px;
+            text-align: end;
+        }
+
+        .s_center_t_item2 {
+        }
+
+        .s_center_t_item_g2{
+            width: 24%;
+        }
+
+        .clear_12 {
+            position: absolute;
+            padding: 16px;
+            right: 0px;
+            font-size: 16px;
+        }
+
+        .icon_clear2 {
+            width: 32px;
+            height: 32px;
+        }
+
+        .el-textarea {
+            width: 78%;
+            border: none;
+        }
+        .el-textarea__inner {
+            border: none;
+        }
+        .van-cell {
+            padding: 6px 0px !important;
+            width: 74% !important;
+        }
+
+        .van-field__control::-webkit-input-placeholder {
+            color: #999999;
+            font-size: 16px;
+            text-align: right !important;
+        }
+        .van-field__control {
+            text-align: right !important;
+        }
+
+        .view_bottom2 {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 100%;
+            z-index: 9;
+            height: 80px;
+        }
+
+        .view_bottom_left2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 240px;
+            height: 40px;
+            background: #e06596;
+            border-radius: 50px;
+            border: 1px solid #e06596;
+            font-size: 18px;
+            color: #ffffff;
+        }
+
+        .radio_view2{
+            margin-top: 10px;
+            display: flex;
+        }
+
+        .money_view2{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 0px 0px 0px;
+        }
+
+        .money_title2{
+            font-size: 18px;
+            color: #E06596;
+        }
+
+        .money_view_12{
+            font-size: 16px;
+            color: #E06596;
+        }
+
+        .money_view_22{
+            font-size: 16px;
+            color: #E06596;
+        }
+
+        .van-field__label2{
+            width: 100% !important;
+            /*height: 30px !important;*/
+            background: #ffffff;
+            /*border-radius: 12px;*/
+            border: none;
+            outline: none;
+            font-size: 16px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #999999 !important;
+            text-align: end;
+            margin-right: 0px !important;
+            padding: 0px 0px 0px 20px !important;
+        }
+
+    </style>
+</head>
+
+<body>
+<div id="app2" v-cloak>
+    <div class="bg2">
+        <template>
+            <div class="ser_home2">
+                <div class="drop_rain2">
+                    <div class="drop_rain_12">Vip上门检测服务</div>
+                    <div class="drop_rain_22" @click="handlerClick">Vip我的预约列表</div>
+                </div>
+                <div class="t_center2">
+                    <div class="s_center_t2">类型：</div>
+<!--                    <div class="s_center_t">新冠：16元/单采；甲流：120元/例，乙流：120元/例</div>-->
+                    <div class="s_center_t_r2" >
+                        <div class="s_center_t_r_v2">
+                            <div :class="dataIndex == item.id ? 's_center_t_r_i2':'s_center_t_r_i_default2'" v-for="(item, index) in dataList"
+                                 :key="item.id" @click="clickTRI(item,index)">{{item.textString}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vip_32">
+                    <div class="s_center_t2">受检人数：</div>
+                    <div class="s_setting_t_item2">
+                        <van-stepper
+                                v-model="ins_num"
+                                integer
+                                input-width="60"
+                                theme="round"
+                                button-size="30"
+                                max="99999"
+                                min="1"
+                                @change="changeStepper"
+                        />
+                    </div>
+                </div>
+
+                <div class="search-list-role-from2">
+                    <div class="search-list-role-from-a2">
+                        <div class="search-list-role-from-d2">
+                            <div class="s_center_t_item2">上门采样日期：</div>
+                            <div class="s_setting_t_item2" @click="clickDate">
+                                <span :style="dateText ? 'color: #333333;':'color: #999999;'">{{dateText ? dateText : '请选择日期'}}</span><van-icon name="arrow" />
+                            </div>
+                        </div>
+                        <div class="search-list-role-from-d2">
+                            <div class="s_center_t_item2">上门采样时间：</div>
+                            <div class="s_setting_t_item2" @click="clickDateTime">
+                                <span :style="timeValue ? 'color: #333333;':'color: #999999;'">{{timeValue ? timeValue : '请选择时间'}}</span><van-icon name="arrow" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="t_center2" style="margin-top: 14px;">
+                    <div class="s_center_t2">选择环内：</div>
+                    <div class="radio_view2" >
+                        <van-radio-group v-model="radioText" direction="horizontal" @change="changeRadio">
+                            <van-radio name="五环内" checked-color="#e06596">五环内</van-radio>
+                            <van-radio name="六环内" checked-color="#e06596">六环内</van-radio>
+                            <van-radio name="六环外" checked-color="#e06596">六环外</van-radio>
+                        </van-radio-group>
+                    </div>
+                </div>
+
+                <div class="t_center2" style="margin-top: 14px;" v-if="DetectionPrice > 0">
+                    <div class="money_title2">费用信息明细</div>
+                    <div class="money_view2" >
+                        <div class="money_view_12">检测费用：</div>
+                        <div class="money_view_22">{{DetectionPrice}}元</div>
+                    </div>
+                    <div class="money_view2" >
+                        <div class="money_view_12">特殊费用：</div>
+                        <div class="money_view_22">{{Special_timeCost}}元</div>
+                    </div>
+                    <div class="money_view2" >
+                        <div class="money_view_12">服务费用：</div>
+                        <div class="money_view_22">{{servicecost}}元</div>
+                    </div>
+                    <div class="money_view2" >
+                        <div class="money_view_12">总计费用：</div>
+                        <div class="money_view_22">{{Total_cost}}元</div>
+                    </div>
+                </div>
+
+                <div class="search-list-role-from2">
+                    <div class="search-list-role-from-a2">
+                        <div class="search-list-role-from-b2">上门信息填写</div>
+                        <div class="search-list-role-from-c12">
+                            <div class="s_center_t_item2" style="width: 20%">姓名：</div>
+                            <div class="select-item2 input-item2">
+                                <van-field v-model="vip_person" label="" placeholder="请输入联系人姓名" class="van-field__label2"/>
+<!--                                <input-->
+<!--                                        v-model="vip_person"-->
+<!--                                        type="text"-->
+<!--                                        name="vip_person"-->
+<!--                                        placeholder="请输入联系人姓名"-->
+<!--                                        maxlength="50"-->
+<!--                                />-->
+                            </div>
+                        </div>
+
+                        <div class="search-list-role-from-c2">
+                            <div class="s_center_t_item2" style="width: 20%">手机号：</div>
+                            <div class="select-item2 input-item2">
+                                <van-field v-model="vip_phone" type="tel" label="" placeholder="请输入联系人手机号" maxlength="11" class="van-field__label2"/>
+<!--                                <input-->
+<!--                                        v-model="vip_phone"-->
+<!--                                        type="number"-->
+<!--                                        name="vip_phone"-->
+<!--                                        placeholder="请输入联系人手机号"-->
+<!--                                        maxlength="11"-->
+<!--                                />-->
+<!--                                <div class="clear_1" @click="clearPhone" v-if="vip_phone">-->
+<!--                                    <van-icon name="close" />-->
+<!--                                </div>-->
+                            </div>
+                        </div>
+                        <div class="search-list-role-from-c2">
+                            <div class="s_center_t_item2" style="width: 24%">所在地区：</div>
+                            <div class="select-item2 div-item2" @click="clickArea">
+                                <div :style="provincecityarea ? 'color: #333333;':'color: #999999;'" style="width: 94%;text-align: end;font-size: 16px;">{{provincecityarea ? provincecityarea : '请选择所在地区'}}</div>
+                                <div class="clear_12" style="padding: 0px">
+                                    <van-icon name="arrow" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="search-list-role-from-g2">
+                            <div class="s_center_t_item_g2" >详细地址：</div>
+                            <van-field
+                                    v-model="address"
+                                    rows="1"
+                                    autosize
+                                    label=""
+                                    type="textarea"
+                                    placeholder="请填写详细地址"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+
+                <div style="height: 50px;"></div>
+
+                <div class="view_bottom2">
+                    <div class="view_bottom_left2" @click="clickSubmit">提交预约</div>
+                </div>
+
+                <van-popup v-model="isShowDate" round position="bottom">
+                    <van-datetime-picker
+                            v-model="currentDate"
+                            type="date"
+                            title="上门采样服务日期"
+                            :min-date="minDate"
+                            @cancel="dateCancel"
+                            @confirm="dateConfirm"
+                    />
+                </van-popup>
+
+                <van-popup v-model="isShowDateTime" round position="bottom">
+                    <van-picker show-toolbar title="上门采样服务时间" :columns="objectMultiArray" @cancel="dateTimeCancel" @confirm="dateTimeConfirm"/>
+                </van-popup>
+
+                <van-popup v-model="isShowArea" round position="bottom">
+                    <van-area title="选择地区" :area-list="areaList" @confirm="areaConfirm" @cancel="areaCancel"/>
+                </van-popup>
+            </div>
+        </template>
+    </div>
+</div>
+<script src="https://unpkg.com/vue@2.6/dist/vue.min.js"></script>
+<script src="https://unpkg.com/vant@2.12/lib/vant.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="./js/areaList.js"></script>
+
+<script>
+    window.onload = () => {
+        new Vue({
+            el: "#app2",
+            data() {
+                return {
+                    open_id: '',
+                    dataList:[],
+                    dataIndex: "",
+                    ins_num: 1,
+                    objectMultiArray:[],
+                    dayList: [],
+                    todayList: [],
+                    isShowDate: false,
+                    dateText: '',
+                    isShowDateTime: false,
+                    minDate: new Date(),
+                    currentDate: new Date(),
+                    timeValue: '',
+                    vip_person: "",
+                    vip_phone: "",
+                    province: "",
+                    city: "",
+                    area: "",
+                    address: "",
+                    provincecityarea: "",
+                    isShowArea: false,
+                    areaList: areaList,
+                    radioText: '',
+                    DetectionPrice: 0,
+                    Special_timeCost: 0,
+                    servicecost: 0,
+                    Total_cost: 0,
+                };
+            },
+            created() {
+                var Request = new Object();
+                Request = this.GetRequest();
+                var open_id = Request['open_id'];
+                this.open_id = open_id || "12341234";
+
+                console.log(this.open_id)
+            },
+            mounted() {
+                this.getAppointmentHour();
+                this.getDetectionType();
+            },
+            methods: {
+                GetRequest() {
+                    var url = location.search; //获取url中"?"符后的字串
+                    var theRequest = new Object();
+                    if (url.indexOf("?") != -1) {
+                        var str = url.substr(1);
+                        strs = str.split("&");
+                        for (var i = 0; i < strs.length; i++) {
+                            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                        }
+                    }
+                    return theRequest;
+                },
+                handlerClick(){
+                    let openid = this.open_id;
+                    location.replace("./VipMineReservationList.html?openid="+openid);
+                },
+                getAppointmentHour(){
+                    let that = this;
+                    axios.get("http://172.16.23.37:8080/lis_appointment/Vipcoyote/getAppointmentHour.hn ", {}).then(function (res) {
+                        if(res.data.success){
+                            that.objectMultiArray = res.data.today;
+                            that.dayList = res.data.day;
+                            that.todayList = res.data.today;
+                        }
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                },
+                getDetectionType(){
+                    let that = this;
+                    axios.get("http://172.16.23.37:8080/lis_appointment/Vipcoyote/getDetectionType.hn ", {}).then(function (res) {
+                        if(res.data.success){
+                            that.dataList = res.data.data;
+                            that.dataList.forEach((item)=>{
+                                item.textString = item.text == '新冠' ? (item.text + '  ' + item.money + ' 元/单采') : (item.text + '  ' + item.money + ' 元/例');
+                            })
+                        }
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                },
+                clickTRI(e,index){
+                    this.dataIndex = e.id;
+
+                    this.getCalculatePrice();
+                },
+                clickDate(){
+                    this.isShowDate = true;
+                },
+                dateCancel(){
+                    this.isShowDate = false;
+                },
+                dateConfirm(date){
+                    this.dateText = this.timeFormat(this.currentDate);
+                    this.isShowDate = false;
+                    let currentTime = this.minDate.getTime();
+                    let selectTime = date.getTime();
+                    if(selectTime > currentTime){
+                        this.objectMultiArray = this.dayList;
+                    } else {
+                        this.objectMultiArray = this.todayList;
+                    }
+                    this.timeValue = "";
+
+                    this.getCalculatePrice();
+                },
+                clickDateTime(){
+                    if(this.dateText){
+                        this.isShowDateTime = true;
+                    } else {
+                        vant.Toast("请先选择上门采样服务日期");
+                    }
+                },
+                dateTimeCancel(){
+                    this.isShowDateTime = false;
+                },
+                dateTimeConfirm(datetime){
+                    this.timeValue = datetime;
+                    this.isShowDateTime = false;
+
+                    this.getCalculatePrice();
+                },
+                timeFormat(time) { // 时间格式化 2019-09-08
+                    let year = time.getFullYear();
+                    let month = time.getMonth() + 1;
+                    if(month<10){
+                        month = '0'+month;
+                    }
+                    let day = time.getDate();
+                    if(day<10){
+                        day = '0'+day;
+                    }
+                    let hour = time.getHours();
+                    if(hour<10){
+                        hour = '0'+hour;
+                    }
+
+                    return year + '-' +month + '-' + day;
+                },
+                clickArea(){
+                    this.isShowArea = true;
+                },
+                areaConfirm(item){
+                    if(item.length>0){
+                        let areaList = [];
+                        for(let i = 0; i < item.length; i++){
+                            areaList.push(item[i].name);
+                        }
+                        let areaName = '';
+                        areaName= areaList.join(",");
+                        this.province = areaList[0];
+                        this.city = areaList[1];
+                        this.area = areaList[2];
+                        this.provincecityarea = areaName;
+                    }
+                    this.isShowArea = false;
+                },
+                areaCancel(){
+                    this.isShowArea = false;
+                },
+                checkPhone(phone) {
+                    var phoneReg = /^1\d{10}$/;
+                    if (phone.length != 11) {
+                        return false;
+                    } else if (!phoneReg.test(phone)) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                },
+                clearPhone() {
+                    this.vip_phone = "";
+                },
+                changeRadio(){
+                    this.getCalculatePrice();
+                },
+                changeStepper(){
+                    this.getCalculatePrice();
+                },
+                getCalculatePrice(){
+                  //http://localhost:8080/lis_appointment/Vipcoyote/CalculatePrice.hn?personSum=60&DetectionType=1&position=五环内&appointmentTime=2023-05-26 12:00   计算价格
+                    let that = this;
+                    // if(that.dataIndex == ''){
+                    //     vant.Toast('请选择检测类型');
+                    //     return;
+                    // }
+                    //
+                    // if(that.dateText == ''){
+                    //     vant.Toast('请选择日期');
+                    //     return;
+                    // }
+                    //
+                    // if(that.timeValue == ''){
+                    //     vant.Toast('请选择时间');
+                    //     return;
+                    // }
+                    //
+                    // if(that.radioText == ''){
+                    //     vant.Toast('请选择环内');
+                    //     return;
+                    // }
+
+                    if (that.dataIndex && that.dateText && that.timeValue && that.radioText){
+                        let params = {
+                            personSum: this.ins_num,
+                            DetectionType: this.dataIndex,
+                            position: this.radioText,
+                            appointmentTime: this.dateText + ' ' + this.timeValue
+                        }
+                        axios.get("http://172.16.23.37:8080/lis_appointment/Vipcoyote/CalculatePrice.hn", {
+                            params: params
+                        }).then(function (res) {
+                            if(res.data.success){
+                                that.DetectionPrice = res.data.DetectionPrice;
+                                that.Special_timeCost = res.data.Special_timeCost;
+                                that.servicecost = res.data.servicecost;
+                                that.Total_cost = res.data.Total_cost;
+                            }
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+                    }
+                },
+                /**
+                 * 保存
+                 */
+                clickSubmit() {
+                    let that = this;
+
+                    if(that.dataIndex == ''){
+                        vant.Toast('请选择检测类型');
+                        return;
+                    }
+
+                    if(that.dateText == ''){
+                        vant.Toast('请选择日期');
+                        return;
+                    }
+
+                    if(that.timeValue == ''){
+                        vant.Toast('请选择时间');
+                        return;
+                    }
+
+                    if(that.radioText == ''){
+                        vant.Toast('请选择环内');
+                        return;
+                    }
+
+                    if(that.vip_person == ''){
+                        vant.Toast('请输入联系人姓名');
+                        return;
+                    }
+
+                    if(that.vip_phone == ''){
+                        vant.Toast('请输入联系人手机号');
+                        return;
+                    }
+
+                    if (!that.checkPhone(that.vip_phone)) {
+                        vant.Toast('手机号有误')
+                        return;
+                    }
+
+                    if(that.provincecityarea == ''){
+                        vant.Toast('请选择所在地区');
+                        return;
+                    }
+
+                    if(that.address == ''){
+                        vant.Toast('请填写详细地址');
+                        return;
+                    }
+
+                    let patObj = {
+                        "Special_timeCost": this.Special_timeCost,
+                        "servicecost": this.servicecost,
+                        "DetectionPrice": this.DetectionPrice,
+                        "Total_cost": this.Total_cost
+                    }
+
+                    let params = {
+                        open_id: this.open_id,
+                        name: this.vip_person,  //联系人
+                        phone: this.vip_phone, // 手机号
+                        Expected_time: this.dateText + ' ' + this.timeValue, //预约时间
+                        area: this.province + '' + this.city + '' + this.area, // 地区
+                        location: this.address, // 详细地址
+                        payment_amount: JSON.stringify(patObj), //价格
+                        Service_Type: this.dataIndex, //检测类型id
+                        personSum: this.ins_num,  //人数
+                        position: this.radioText,
+
+                    }
+
+                    axios.get("http://172.16.23.37:8080/lis_appointment/Vipcoyote/addOnlinePaymentOrder.hn", {
+                        params: params
+                    }).then(function (res) {
+                        if (res.data.success) {
+                            var appId = res.data.appId;
+                            if (res.data.prePaySuccess) {
+                                // 设置支付参数---------------
+                                var prepay_id = res.data.prepay_id;
+                                var trade_type = res.data.trade_type;
+                                var appId = res.data.appId + "";
+                                var timeStamp = res.data.timeStamp + "";
+                                var nonceStr = res.data.nonceStr + "";
+                                var package1 = res.data.package1 + "";
+                                var signType = "MD5";
+                                var paySign = res.data.paySign + "";
+                                var jsobject = res.data.jsobject;
+                                var appointment_num = res.data.appointment_num;
+                                var a = appointment_num;
+                                //alert("我是后端返回的appointment_num："+appointment_num);
+                                if (typeof WeixinJSBridge == "undefined") {
+                                    alert(WeixinJSBridge);
+                                    if (document.addEventListener) {
+                                        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                                    } else if (document.attachEvent) {
+                                        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                                        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+                                    }
+                                } else {
+                                    that.onBridgeReady(appId, timeStamp, nonceStr, package1, signType, paySign, jsobject, appointment_num);
+                                }
+                            }
+                        } else {
+                            vant.Toast(res.data.msg);
+                        }
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                },
+                //微信支付
+                onBridgeReady(appId, timeStamp, nonceStr, package1, signType, paySign, jsobject, appointment_num) {
+                    let that = this;
+                    WeixinJSBridge.invoke('getBrandWCPayRequest', {
+                            "appId": appId,
+                            "timeStamp": timeStamp,
+                            "nonceStr": nonceStr,
+                            "package": package1,
+                            "signType": signType,
+                            "paySign": paySign
+                        },
+                        function (res) {
+                            //alert(res.err_msg);
+                            if (res.err_msg == "get_brand_wcpay_request:ok") {
+                                //alert("appointment_num:"+appointment_num);
+                                that.handlerClick();
+                                // location.replace("./record_person.html?appointment_num=" + appointment_num + "&openid=" + openid);
+                            }
+                            else {
+                                if(channel_id==146||channel_id==152||channel_id==160){
+                                    vant.Toast("支付失败");
+                                    //location.reload();
+                                }
+                            }
+                            // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+                        }
+                    );
+                }
+            },
+        });
+    };
+</script>
+</body>
+
+</html>

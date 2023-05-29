@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no,viewport-fit=cover" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <title>Vip我的预约列表</title>
+    <link rel="stylesheet" href="https://unpkg.com/vant@2.12/lib/index.css"/>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            /* webkit是苹果浏览器引擎，tap点击，highlight背景高亮，color颜色，颜色用数值调节。 */
+        }
+
+        #app1 {
+            width: 100%;
+            height: 100%;
+            /*overflow: scroll;*/
+            background: #FFFFFF;
+        }
+
+        .bg1 {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background:#FFFFFF;
+            overflow: hidden;
+        }
+
+        .ser_home1 {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        .empty_view1{
+            height: 50px;
+            width: 100%;
+        }
+
+
+        .search-list-role1 {
+            border: 0 none;
+            background-color: #F6F6F6;
+            width: 100%;
+        }
+
+        .class_list1{
+            padding: 15px 15px 0px 15px;
+        }
+
+        .search-result-view1 {
+            display: flex;
+            padding: 15px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            flex-direction: column;
+            /*margin-top: 20px;*/
+        }
+
+
+        .search-result-view-item1 {
+            width: 100%;
+            display: flex;
+            padding: 4px 0px 0px 0px;
+        }
+
+
+        .search-result-view-left1{
+            width: 25%;
+            font-size: 16px;
+            color: #999999;
+        }
+
+        .search-result-view-right1{
+            width: 75%;
+            font-size: 16px;
+            word-break: break-all;
+        }
+
+        .pic-img-view1 {
+            position: absolute;
+            right: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .pic-img-icon1{
+            width: 20px;
+            height: 24px;
+
+        }
+
+
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        /*滑动轨道*/
+        ::-webkit-scrollbar-track-piece {
+            background-color: transparent;
+            -webkit-border-radius: 6px;
+        }
+               /*竖向滚动条*/
+           ::-webkit-scrollbar-thumb:vertical {
+               height: 5px;
+               background-color: #ffffff;
+               -webkit-border-radius: 6px;
+           }
+        /*横向滚动条*/
+        ::-webkit-scrollbar-thumb:horizontal {
+            width: 5px;
+            background-color: #ffffff;
+            -webkit-border-radius: 6px;
+        }
+
+
+        .s_center_t_r_i1{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #E06596;
+            font-size: 16px;
+            padding: 4px 12px;
+            color: #E06596;
+        }
+
+        .dis_setting1{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px 50px 20px 50px;
+        }
+
+        .s_center_t_item1{
+            font-size: 18px;
+        }
+
+        .s_setting_t_item1{
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body style="background: #F6F6F6">
+<div id="app1" v-cloak>
+    <div class="bg1">
+        <template>
+            <div class="ser_home1">
+                <div class="search-list-role1" v-if="instrumentList.length>0">
+                    <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+                        <van-list
+                                v-model="loading"
+                                :finished="finished"
+                                finished-text="没有更多了">
+                            <div v-for="(item, index) in instrumentList"
+                                    :key="index" class="class_list1">
+                                <div class="search-result-view1">
+                                    <div class="dis_setting1" style="padding: 0px 0px 0px 0px;">
+                                        <div class="s_center_t_item1">{{ item.order_number }}</div>
+                                        <div class="s_setting_t_item1" style="color:#ec1f2d;" v-if="item.status == 0">{{'未支付'}}</div>
+                                        <div class="s_setting_t_item1" style="color:#ec1f2d;" v-if="item.status == 1">{{'未接单'}}</div>
+                                        <div class="s_setting_t_item1" style="color:#ec1f2d;" v-if="item.status == 2">{{'已接单'}}</div>
+                                        <div class="s_setting_t_item1" style="color:#ec1f2d;" v-if="item.status == 3">{{'退款中'}}</div>
+                                        <div class="s_setting_t_item1" style="color:#ec1f2d;" v-if="item.status == 4">{{'退款成功'}}</div>
+                                        <div class="s_setting_t_item1" style="color:#ec1f2d;" v-if="item.status == 5">{{'服务结束'}}</div>
+                                    </div>
+                                    <div class="search-result-view-item1" v-if="item.custom_name">
+                                        <div class="search-result-view-left1">联系人</div>
+                                        <div class="search-result-view-right1">{{item.custom_name}}</div>
+                                    </div>
+                                    <div class="search-result-view-item1" v-if="item.custom_phone">
+                                        <div class="search-result-view-left1">手机号</div>
+                                        <div class="search-result-view-right1">{{item.custom_phone}}</div>
+                                    </div>
+                                    <div class="search-result-view-item1" v-if="item.location">
+                                        <div class="search-result-view-left1">上门地址</div>
+                                        <div class="search-result-view-right1">{{item.area}}{{item.location}}</div>
+                                    </div>
+                                    <div class="search-result-view-item1" v-if="item.appointment_num">
+                                        <div class="search-result-view-left1">信息码</div>
+                                        <div class="search-result-view-right1">{{item.appointment_num}}</div>
+                                    </div>
+                                    <div class="search-result-view-item1" v-if="item.Service_Type">
+                                        <div class="search-result-view-left1">检测类型</div>
+                                        <div class="search-result-view-right1">{{item.Service_Type}}</div>
+                                    </div>
+                                    <div class="search-result-view-item1" v-if="item.Number_of_people">
+                                        <div class="search-result-view-left1">受检人数</div>
+                                        <div class="search-result-view-right1">{{item.Number_of_people}}人</div>
+                                    </div>
+                                    <div class="search-result-view-item1" v-if="item.DetectionPrice">
+                                        <div class="search-result-view-left1">检测费用</div>
+                                        <div class="search-result-view-right1">{{item.DetectionPrice}}</div>
+                                    </div>
+                                    <div class="search-result-view-item1" v-if="item.Special_timeCost">
+                                        <div class="search-result-view-left1">特殊费用</div>
+                                        <div class="search-result-view-right1">{{item.Special_timeCost}}</div>
+                                    </div>
+                                    <div class="search-result-view-item1" v-if="item.servicecost">
+                                        <div class="search-result-view-left1">服务费用</div>
+                                        <div class="search-result-view-right1">{{item.servicecost}}</div>
+                                    </div>
+                                    <div class="search-result-view-item1" v-if="item.payment_amount">
+                                        <div class="search-result-view-left1">总计费用</div>
+                                        <div class="search-result-view-right1">{{item.payment_amount}}</div>
+                                    </div>
+                                    <div class="search-result-view-item1" v-if="item.pay_time">
+                                        <div class="search-result-view-left1">付款时间</div>
+                                        <div class="search-result-view-right1">{{item.pay_time}}</div>
+                                    </div>
+
+                                    <div class="dis_setting1" style="padding: 6px 0px 0px 0px;">
+                                        <div class="s_center_t_item1" style="display:flex;">
+                                            <div class="s_setting_t_item1" style="color:#E06596;">预约时间：{{item.Expected_time}}</div>
+                                        </div>
+                                        <div class="s_setting_t_item1" style="display:flex;">
+                                            <div class="s_center_t_r_i1" style="margin-right:0px;" @click="clickRefund(item,index)" v-if="item.status == 1">退款</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </van-list>
+                    </van-pull-refresh>
+                </div>
+                <div class="search-list-role1" v-else>
+                    <van-empty description="暂无数据"></van-empty>
+                </div>
+
+<!--                <div class="empty_view"></div>-->
+            </div>
+        </template>
+    </div>
+</div>
+<script src="https://unpkg.com/vue@2.6/dist/vue.min.js"></script>
+<script src="https://unpkg.com/vant@2.12/lib/vant.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    window.onload = () => {
+        new Vue({
+            el: "#app1",
+            data() {
+                return {
+                    open_id: '',
+                    page: 1, //第几页
+                    limit: 30, //每页限制
+                    instrumentList: [],
+                    loading: false,
+                    finished: false,
+                    refreshing: false,
+                };
+            },
+            created() {
+                var Request = new Object();
+                Request = this.GetRequest();
+                var appointment_num = Request['appointment_num'];
+                var openid = Request['openid'];
+                this.open_id = openid;
+
+
+                console.log(appointment_num,openid)
+            },
+            mounted() {
+                this.getAllVIPRecords();
+            },
+            methods: {
+                GetRequest() {
+                    var url = location.search; //获取url中"?"符后的字串
+                    var theRequest = new Object();
+                    if (url.indexOf("?") != -1) {
+                        var str = url.substr(1);
+                        strs = str.split("&");
+                        for (var i = 0; i < strs.length; i++) {
+                            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                        }
+                    }
+                    return theRequest;
+                },
+                getAllVIPRecords() {
+                    if (this.refreshing) {
+                        this.instrumentList = [];
+                        this.refreshing = false;
+                    }
+                    let that = this;
+                    axios.get("http://172.16.23.37:8080/lis_appointment/Vipcoyote/getTestRecords.hn", {
+                        params:{
+                            open_id: this.open_id
+                        }
+                    }).then(function (res) {
+                        if (res.data.success) {
+                            that.instrumentList = res.data.data;
+                            that.loading = false;
+                            that.finished = true;
+                        } else {
+                            vant.Toast(res.data.msg)
+                        }
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                },
+                onRefresh(){
+                    // 清空列表数据
+                    this.finished = false;
+                    this.instrumentList = [];
+                    // 重新加载数据
+                    // 将 loading 设置为 true，表示处于加载状态
+                    this.loading = true;
+                    this.getAllVIPRecords();
+                },
+                clickRefund(item,index){
+                    let that = this;
+                    let appointment_num = item.appointment_num;
+                    if(appointment_num){
+                        vant.Dialog.confirm({
+                            title: '温馨提示',
+                            message: '提前2小时终止服务可全额退款，提前1小时终止服务退一半费用，您确认要退款？',
+                        }).then(() => {
+                            axios.get("http://172.16.23.37:8080/lis_appointment/Vipcoyote/refund.hn", {
+                                params:{
+                                    appointment_num: appointment_num
+                                }
+                            }).then(function (res) {
+                                if (res.data.success) {
+                                    vant.Toast(res.data.msg)
+                                    that.onRefresh();
+                                } else {
+                                    vant.Toast(res.data.msg)
+                                }
+                            }).catch(function (error) {
+                                console.log(error);
+                            });
+                        }).catch(() => {
+                            // on cancel
+                        });
+                    }
+                }
+            },
+        });
+    };
+</script>
+</body>
+
+</html>
