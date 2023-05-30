@@ -206,19 +206,19 @@
                                     </div>
                                     <div class="search-result-view-item1" v-if="item.DetectionPrice">
                                         <div class="search-result-view-left1">检测费用</div>
-                                        <div class="search-result-view-right1">{{item.DetectionPrice}}</div>
+                                        <div class="search-result-view-right1">{{fn1(item.DetectionPrice)}}</div>
                                     </div>
                                     <div class="search-result-view-item1" v-if="item.Special_timeCost">
                                         <div class="search-result-view-left1">特殊费用</div>
-                                        <div class="search-result-view-right1">{{item.Special_timeCost}}</div>
+                                        <div class="search-result-view-right1">{{fn1(item.Special_timeCost)}}</div>
                                     </div>
                                     <div class="search-result-view-item1" v-if="item.servicecost">
                                         <div class="search-result-view-left1">服务费用</div>
-                                        <div class="search-result-view-right1">{{item.servicecost}}</div>
+                                        <div class="search-result-view-right1">{{fn1(item.servicecost)}}</div>
                                     </div>
                                     <div class="search-result-view-item1" v-if="item.payment_amount">
                                         <div class="search-result-view-left1">总计费用</div>
-                                        <div class="search-result-view-right1">{{item.payment_amount}}</div>
+                                        <div class="search-result-view-right1">{{fn1(item.payment_amount)}}</div>
                                     </div>
                                     <div class="search-result-view-item1" v-if="item.pay_time">
                                         <div class="search-result-view-left1">付款时间</div>
@@ -252,6 +252,11 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script>
+    function fn1(s){
+        let  i = 0;
+        i = parseInt(s);
+        return i;
+    }
     window.onload = () => {
         new Vue({
             el: "#app1",

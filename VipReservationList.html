@@ -247,19 +247,19 @@
                                         </div>
                                         <div class="search-result-view-item3" v-if="item.DetectionPrice">
                                             <div class="search-result-view-left3">检测费用</div>
-                                            <div class="search-result-view-right3">{{item.DetectionPrice}}</div>
+                                            <div class="search-result-view-right3">{{fn3(item.DetectionPrice)}}</div>
                                         </div>
                                         <div class="search-result-view-item3" v-if="item.Special_timeCost">
                                             <div class="search-result-view-left3">特殊费用</div>
-                                            <div class="search-result-view-right3">{{item.Special_timeCost}}</div>
+                                            <div class="search-result-view-right3">{{fn3(item.Special_timeCost)}}</div>
                                         </div>
                                         <div class="search-result-view-item3" v-if="item.servicecost">
                                             <div class="search-result-view-left3">服务费用</div>
-                                            <div class="search-result-view-right3">{{item.servicecost}}</div>
+                                            <div class="search-result-view-right3">{{fn3(item.servicecost)}}</div>
                                         </div>
                                         <div class="search-result-view-item3" v-if="item.payment_amount">
                                             <div class="search-result-view-left3">总计费用</div>
-                                            <div class="search-result-view-right3">{{item.payment_amount}}</div>
+                                            <div class="search-result-view-right3">{{fn3(item.payment_amount)}}</div>
                                         </div>
                                         <div class="search-result-view-item3" v-if="item.pay_time">
                                             <div class="search-result-view-left3">付款时间</div>
@@ -326,19 +326,19 @@
                                         </div>
                                         <div class="search-result-view-item3" v-if="item.DetectionPrice">
                                             <div class="search-result-view-left3">检测费用</div>
-                                            <div class="search-result-view-right3">{{item.DetectionPrice}}</div>
+                                            <div class="search-result-view-right3">{{fn3(item.DetectionPrice)}}</div>
                                         </div>
                                         <div class="search-result-view-item3" v-if="item.Special_timeCost">
                                             <div class="search-result-view-left3">特殊费用</div>
-                                            <div class="search-result-view-right3">{{item.Special_timeCost}}</div>
+                                            <div class="search-result-view-right3">{{fn3(item.Special_timeCost)}}</div>
                                         </div>
                                         <div class="search-result-view-item3" v-if="item.servicecost">
                                             <div class="search-result-view-left3">服务费用</div>
-                                            <div class="search-result-view-right3">{{item.servicecost}}</div>
+                                            <div class="search-result-view-right3">{{fn3(item.servicecost)}}</div>
                                         </div>
                                         <div class="search-result-view-item3" v-if="item.payment_amount">
                                             <div class="search-result-view-left3">总计费用</div>
-                                            <div class="search-result-view-right3">{{item.payment_amount}}</div>
+                                            <div class="search-result-view-right3">{{fn3(item.payment_amount)}}</div>
                                         </div>
                                         <div class="search-result-view-item3" v-if="item.pay_time">
                                             <div class="search-result-view-left3">付款时间</div>
@@ -350,7 +350,7 @@
                                                 <div class="s_setting_t_item3" style="color:#E06596;">预约时间：{{item.Expected_time}}</div>
                                             </div>
                                             <div class="s_setting_t_item3" style="display:flex;">
-                                                <div class="s_center_t_r_i3" style="margin-right:0px;" @click="clickHandlerDown(item,index)" v-if="item.status == 2">完成</div>
+<!--                                                <div class="s_center_t_r_i3" style="margin-right:0px;" @click="clickHandlerDown(item,index)" v-if="item.status == 2">完成</div>-->
                                             </div>
                                         </div>
                                     </div>
@@ -373,6 +373,12 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script>
+    function fn3(s){
+        let  i = 0;
+        i = parseInt(s);
+        return i;
+    }
+
     window.onload = () => {
         new Vue({
             el: "#app3",
@@ -514,7 +520,7 @@
                                 console.log(error);
                             });
                         }).catch(() => {
-                                // on cancel
+                            // on cancel
                         });
                     }
                 },
