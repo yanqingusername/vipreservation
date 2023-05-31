@@ -534,7 +534,7 @@
                 var Request = new Object();
                 Request = this.GetRequest();
                 var open_id = Request['open_id'];
-                this.open_id = open_id || "12341234";
+                this.open_id = open_id;
 
                 console.log(this.open_id)
             },
@@ -558,6 +558,20 @@
                 handlerClick(){
                     let openid = this.open_id;
                     location.replace("./VipMineReservationList.html?openid="+openid);
+                },
+                getOpenid(){
+                    let that = this;
+                    axios.get("http://172.16.23.37:8080/lis_appointment/Vipcoyote/getOpenid.hn", {
+                        params: {
+                            code: that.code
+                        }
+                    }).then(function (res) {
+                        if(res.data.success){
+                            that.open_id = res.data.openid;
+                        }
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
                 },
                 getAppointmentHour(){
                     let that = this;
